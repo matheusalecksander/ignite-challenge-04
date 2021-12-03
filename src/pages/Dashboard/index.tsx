@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 
 import Header from '../../components/Header';
 import api from '../../services/api';
-import Food from '../../components/Food';
+import { Food } from '../../components/Food';
 import ModalAddFood from '../../components/ModalAddFood';
 import ModalEditFood from '../../components/ModalEditFood';
 import { FoodsContainer } from './styles';
 
-interface FoodsProps {
+export interface FoodsProps {
   id: number,
   name: string,
   description: string,
@@ -46,17 +46,18 @@ export function Dashboard(props: FoodsProps) {
   }
 
   async function handleUpdateFood() {
-    try {const foodUpdated = await api.put(
-      `/foods/${editingFood.id}`,
-      { ...editingFood, ...foods },
-    );
+    try {
+      const foodUpdated = await api.put(
+        `/foods/${editingFood.id}`,
+        { ...editingFood, ...foods },
+      );
 
-    const foodsUpdated = foods.map(f =>
-      f.id !== foodUpdated.data.id ? f : foodUpdated.data,
-    );
+      const foodsUpdated = foods.map(f =>
+        f.id !== foodUpdated.data.id ? f : foodUpdated.data,
+      );
 
-    setFoods(foodsUpdated);
-    } catch(err){
+      setFoods(foodsUpdated);
+    } catch (err) {
       console.log(err)
     }
   }
@@ -73,7 +74,7 @@ export function Dashboard(props: FoodsProps) {
     setModalOpen(!modalOpen)
   }
 
-  function toggleEditModal(){
+  function toggleEditModal() {
     setEditModalOpen(!editModalOpen)
   }
 
@@ -107,7 +108,7 @@ export function Dashboard(props: FoodsProps) {
               handleEditFood={handleEditFood}
             />
           ))}
-      </FoodsContainer> 
+      </FoodsContainer>
     </>
   )
 }
