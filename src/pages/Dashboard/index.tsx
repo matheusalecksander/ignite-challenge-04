@@ -34,10 +34,10 @@ export function Dashboard() {
     fetchData()
   }, [])
 
-  async function handleAddFood() {
+  async function handleAddFood(food: Omit<FoodsProps, 'id' | 'available'>) {
     try {
       const response = await api.post('/foods', {
-        ...foods,
+        ...food,
         available: true
       })
       setFoods([...foods, response.data])
@@ -46,11 +46,11 @@ export function Dashboard() {
     }
   }
 
-  async function handleUpdateFood() {
+  async function handleUpdateFood(food: FoodsProps) {
     try {
       const foodUpdated = await api.put(
         `/foods/${editingFood.id}`,
-        { ...editingFood, ...foods },
+        { ...editingFood, ...food },
       );
 
       const foodsUpdated = foods.map(f =>
