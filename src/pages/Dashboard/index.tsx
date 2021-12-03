@@ -4,8 +4,8 @@ import api from '../../services/api';
 
 import { Header } from '../../components/Header';
 import { Food } from '../../components/Food';
-import ModalAddFood from '../../components/ModalAddFood';
-import ModalEditFood from '../../components/ModalEditFood';
+import { ModalAddFood } from '../../components/ModalAddFood';
+import { ModalEditFood } from '../../components/ModalEditFood';
 import { FoodsContainer } from './styles';
 
 export interface FoodsProps {
@@ -34,7 +34,7 @@ export function Dashboard() {
     fetchData()
   }, [])
 
-  async function handleAddFood(food: Omit<FoodsProps, 'id' | 'available'>) {
+  async function handleAddFood(food: Omit<FoodsProps, 'id' | 'available'>): Promise<void> {
     try {
       const response = await api.post('/foods', {
         ...food,
@@ -46,7 +46,7 @@ export function Dashboard() {
     }
   }
 
-  async function handleUpdateFood(food: FoodsProps) {
+  async function handleUpdateFood(food: Omit<FoodsProps, 'id' | 'available'>) {
     try {
       const foodUpdated = await api.put(
         `/foods/${editingFood.id}`,
