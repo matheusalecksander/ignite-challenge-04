@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import Header from '../../components/Header';
 import api from '../../services/api';
+
+import { Header } from '../../components/Header';
 import { Food } from '../../components/Food';
 import ModalAddFood from '../../components/ModalAddFood';
 import ModalEditFood from '../../components/ModalEditFood';
@@ -16,7 +17,7 @@ export interface FoodsProps {
   image: string
 }
 
-export function Dashboard(props: FoodsProps) {
+export function Dashboard() {
   const [foods, setFoods] = useState<FoodsProps[]>([])
   const [editingFood, setEditingFood] = useState<FoodsProps>({} as FoodsProps)
   const [modalOpen, setModalOpen] = useState(false)
